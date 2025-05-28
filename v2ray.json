@@ -48,7 +48,8 @@
       "protocol": "freedom",
       "tag": "direct",
       "settings": {
-        "domainStrategy": "UseIPv4",
+        "domainStrategy": "AsIs",
+        "redirect": "127.0.0.1:3366",
         "userLevel": 0
       },
       "streamSettings": {
@@ -75,10 +76,6 @@
   ],
   "dns": {
     "servers": [
-      {
-        "address": "1.1.1.1",
-        "port": 53
-      },
       {
         "address": "8.8.8.8",
         "port": 53
