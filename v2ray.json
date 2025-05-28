@@ -48,8 +48,7 @@
       "protocol": "freedom",
       "tag": "direct",
       "settings": {
-        "domainStrategy": "AsIs",
-        "redirect": "127.0.0.1:3366",
+        "domainStrategy": "UseIPv4",
         "userLevel": 0
       },
       "streamSettings": {
