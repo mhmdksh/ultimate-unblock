@@ -6,12 +6,34 @@ vpn.moeshehab.com {
     header Upgrade    websocket
   }
 
-  reverse_proxy @websockets v2ray:2213/ws
+  reverse_proxy @websockets v2ray:2213 {
+    header_up Host {host}
+    header_up X-Real-IP {remote}
+    header_up X-Forwarded-For {remote}
+    header_up X-Forwarded-Proto {scheme}
+    
+    transport http {
+      keepalive 30s
+      keepalive_idle_conns 10
+    }
+  }
 
   route {
-    reverse_proxy /ws v2ray:2213
+    reverse_proxy /ws v2ray:2213 {
+      header_up Host {host}
+      header_up X-Real-IP {remote}
+      header_up X-Forwarded-For {remote}
+      header_up X-Forwarded-Proto {scheme}
+      
+      transport http {
+        keepalive 30s
+        keepalive_idle_conns 10
+      }
+    }
     file_server
   }
+
+  encode gzip
 
   log {
     output stdout

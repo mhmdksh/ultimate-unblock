@@ -33,13 +33,16 @@
           "tcpFastOpen": true,
           "tcpNoDelay": true,
           "tcpKeepAliveInterval": 30,
-          "tcpKeepAliveIdle": 30
+          "tcpKeepAliveIdle": 30,
+          "tcpMptcp": true,
+          "tcpCongestion": "bbr"
         }
       },
       "sniffing": {
         "enabled": true,
         "destOverride": ["http", "tls"],
-        "metadataOnly": false
+        "metadataOnly": false,
+        "routeOnly": true
       }
     }
   ],
@@ -55,7 +58,9 @@
         "sockopt": {
           "tcpFastOpen": true,
           "tcpNoDelay": true,
-          "mark": 255
+          "mark": 255,
+          "tcpMptcp": true,
+          "tcpCongestion": "bbr"
         }
       }
     },
@@ -71,32 +76,19 @@
   ],
   "dns": {
     "servers": [
-      {
-        "address": "1.1.1.1",
-        "port": 53,
-        "domains": ["geosite:geolocation-!cn"],
-        "expectIPs": ["geoip:!cn"],
-        "skipFallback": true
-      },
-      {
-        "address": "8.8.8.8",
-        "port": 53,
-        "domains": ["geosite:google"],
-        "expectIPs": ["geoip:!cn"],
-        "skipFallback": true
-      },
+      "1.1.1.1",
+      "8.8.8.8",
       {
         "address": "223.5.5.5",
         "port": 53,
         "domains": ["geosite:cn"],
         "expectIPs": ["geoip:cn"]
-      },
-      "localhost"
+      }
     ],
     "queryStrategy": "UseIPv4",
     "disableCache": false,
     "disableFallback": false,
-    "disableFallbackIfMatch": true,
+    "disableFallbackIfMatch": false,
     "tag": "dns_inbound"
   },
   "routing": {
@@ -147,7 +139,7 @@
         "downlinkOnly": 5,
         "statsUserUplink": false,
         "statsUserDownlink": false,
-        "bufferSize": 512
+        "bufferSize": 64
       }
     },
     "system": {
