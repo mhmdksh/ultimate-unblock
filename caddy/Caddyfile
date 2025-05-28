@@ -1,0 +1,19 @@
+vpn.moeshehab.com {
+  root * /usr/share/caddy
+
+  @websockets {
+    header Connection *Upgrade*
+    header Upgrade    websocket
+  }
+
+  reverse_proxy @websockets v2ray:2213/ws
+
+  route {
+    reverse_proxy /ws v2ray:2213
+    file_server
+  }
+
+  log {
+    output stdout
+  }
+}

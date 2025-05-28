@@ -1,0 +1,22 @@
+services:
+  v2ray:
+    image: ghcr.io/v2fly/v2ray:latest-extra
+    restart: always
+    environment:
+      - v2ray.vmess.aead.forced=false
+    volumes:
+      - ./v2ray.json:/etc/v2ray/config.json
+    ports:
+     - 2213
+
+  caddy:
+    image: caddy:2
+    restart: always
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/web/:/usr/share/caddy
+      - ./caddy/data/:/data/caddy/
+      - ./caddy/config/:/config/caddy
+    ports:
+      - 80:80
+      - 443:443

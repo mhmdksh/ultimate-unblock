@@ -1,0 +1,173 @@
+{
+  "log": {
+    "loglevel": "warning",
+    "access": "",
+    "error": ""
+  },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": 2213,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "d2fbcdf9-12f7-4692-a140-bc401f5b988b",
+            "alterId": 0,
+            "security": "auto"
+          }
+        ],
+        "disableInsecureEncryption": true
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/ws",
+          "headers": {
+            "Host": ""
+          },
+          "maxEarlyData": 2048,
+          "earlyDataHeaderName": "Sec-WebSocket-Protocol"
+        },
+        "sockopt": {
+          "tcpFastOpen": true,
+          "tcpNoDelay": true,
+          "tcpKeepAliveInterval": 30,
+          "tcpKeepAliveIdle": 30
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"],
+        "metadataOnly": false
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct",
+      "settings": {
+        "domainStrategy": "UseIPv4",
+        "userLevel": 0
+      },
+      "streamSettings": {
+        "sockopt": {
+          "tcpFastOpen": true,
+          "tcpNoDelay": true,
+          "mark": 255
+        }
+      }
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "blocked",
+      "settings": {
+        "response": {
+          "type": "none"
+        }
+      }
+    }
+  ],
+  "dns": {
+    "servers": [
+      {
+        "address": "1.1.1.1",
+        "port": 53,
+        "domains": ["geosite:geolocation-!cn"],
+        "expectIPs": ["geoip:!cn"],
+        "skipFallback": true
+      },
+      {
+        "address": "8.8.8.8",
+        "port": 53,
+        "domains": ["geosite:google"],
+        "expectIPs": ["geoip:!cn"],
+        "skipFallback": true
+      },
+      {
+        "address": "223.5.5.5",
+        "port": 53,
+        "domains": ["geosite:cn"],
+        "expectIPs": ["geoip:cn"]
+      },
+      "localhost"
+    ],
+    "queryStrategy": "UseIPv4",
+    "disableCache": false,
+    "disableFallback": false,
+    "disableFallbackIfMatch": true,
+    "tag": "dns_inbound"
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "domainMatcher": "hybrid",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": ["dns_inbound"],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "blocked"
+      },
+      {
+        "type": "field",
+        "ip": ["224.0.0.0/4", "ff00::/8"],
+        "outboundTag": "blocked"
+      },
+      {
+        "type": "field",
+        "protocol": ["bittorrent"],
+        "outboundTag": "blocked"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:category-ads-all",
+          "domain:app-measurement.com"
+        ],
+        "outboundTag": "blocked"
+      },
+      {
+        "type": "field",
+        "network": "tcp,udp",
+        "outboundTag": "direct"
+      }
+    ]
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "handshake": 4,
+        "connIdle": 300,
+        "uplinkOnly": 2,
+        "downlinkOnly": 5,
+        "statsUserUplink": false,
+        "statsUserDownlink": false,
+        "bufferSize": 512
+      }
+    },
+    "system": {
+      "statsInboundUplink": false,
+      "statsInboundDownlink": false,
+      "statsOutboundUplink": false,
+      "statsOutboundDownlink": false
+    }
+  },
+  "transport": {
+    "tcpSettings": {
+      "acceptProxyProtocol": false,
+      "header": {
+        "type": "none"
+      }
+    },
+    "wsSettings": {
+      "acceptProxyProtocol": false,
+      "path": "/ws",
+      "headers": {}
+    }
+  }
+}
