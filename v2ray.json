@@ -24,7 +24,7 @@
         "wsSettings": {
           "path": "/ws",
           "headers": {
-            "Host": ""
+            "Host": "vpn.moeshehab.com"
           },
           "maxEarlyData": 2048,
           "earlyDataHeaderName": "Sec-WebSocket-Protocol"
@@ -33,16 +33,13 @@
           "tcpFastOpen": true,
           "tcpNoDelay": true,
           "tcpKeepAliveInterval": 30,
-          "tcpKeepAliveIdle": 30,
-          "tcpMptcp": true,
-          "tcpCongestion": "bbr"
+          "tcpKeepAliveIdle": 30
         }
       },
       "sniffing": {
         "enabled": true,
         "destOverride": ["http", "tls"],
-        "metadataOnly": false,
-        "routeOnly": true
+        "metadataOnly": false
       }
     }
   ],
@@ -58,9 +55,7 @@
         "sockopt": {
           "tcpFastOpen": true,
           "tcpNoDelay": true,
-          "mark": 255,
-          "tcpMptcp": true,
-          "tcpCongestion": "bbr"
+          "mark": 255
         }
       }
     },
@@ -72,24 +67,27 @@
           "type": "none"
         }
       }
+    },
+    {
+      "protocol": "dns",
+      "tag": "dns-out"
     }
   ],
   "dns": {
     "servers": [
-      "1.1.1.1",
-      "8.8.8.8",
       {
-        "address": "223.5.5.5",
-        "port": 53,
-        "domains": ["geosite:cn"],
-        "expectIPs": ["geoip:cn"]
+        "address": "1.1.1.1",
+        "port": 53
+      },
+      {
+        "address": "8.8.8.8",
+        "port": 53
       }
     ],
     "queryStrategy": "UseIPv4",
     "disableCache": false,
     "disableFallback": false,
-    "disableFallbackIfMatch": false,
-    "tag": "dns_inbound"
+    "tag": "dns"
   },
   "routing": {
     "domainStrategy": "IPIfNonMatch",
@@ -97,8 +95,8 @@
     "rules": [
       {
         "type": "field",
-        "inboundTag": ["dns_inbound"],
-        "outboundTag": "direct"
+        "inboundTag": ["dns"],
+        "outboundTag": "dns-out"
       },
       {
         "type": "field",
@@ -119,13 +117,17 @@
         "type": "field",
         "domain": [
           "geosite:category-ads-all",
-          "domain:app-measurement.com"
+          "domain:app-measurement.com",
+          "domain:googleadservices.com",
+          "domain:googlesyndication.com",
+          "domain:googletagmanager.com",
+          "domain:google-analytics.com"
         ],
         "outboundTag": "blocked"
       },
       {
         "type": "field",
-        "network": "tcp,udp",
+        "port": "0-65535",
         "outboundTag": "direct"
       }
     ]
@@ -159,7 +161,9 @@
     "wsSettings": {
       "acceptProxyProtocol": false,
       "path": "/ws",
-      "headers": {}
+      "headers": {
+        "Host": "vpn.moeshehab.com"
+      }
     }
   }
 }
