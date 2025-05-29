@@ -124,7 +124,7 @@
           "domain:pps.whatsapp.net",
           "regexp:.*\\.whatsapp\\.(net|com)"
         ],
-        "outboundTag": "whatsapp-priority"
+        "outboundTag": "direct"
       },
       {
         "type": "field",
