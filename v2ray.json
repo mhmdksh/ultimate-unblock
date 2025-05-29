@@ -33,8 +33,7 @@
           "tcpFastOpen": true,
           "tcpNoDelay": true,
           "tcpKeepAliveInterval": 10,
-          "tcpKeepAliveIdle": 120,
-          "tcpUserTimeout": 10000
+          "tcpKeepAliveIdle": 120
         }
       },
       "sniffing": {
