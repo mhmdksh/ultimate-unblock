@@ -1,0 +1,21 @@
+services:
+  xray:
+    image: ghcr.io/xtls/xray-core:main
+    container_name: xray
+    restart: always
+    volumes:
+      - ./v2ray.json:/etc/xray/config/config.json
+    ports:
+      - "2213:2213"
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: always
+    volumes:
+      - ./caddy/Caddyfile-xray:/etc/caddy/Caddyfile
+      - ./caddy/web/:/usr/share/caddy
+      - ./caddy/data/:/data/caddy/
+      - ./caddy/config/:/config/caddy
+    ports:
+      - 80:80
+      - 443:443

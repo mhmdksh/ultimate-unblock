@@ -108,11 +108,11 @@
       },
       {
         "type": "field",
-        "outboundTag": "blocked",
         "domain": [
           "geosite:category-ads-all",
           "geosite:category-porn"
-        ]
+        ],
+        "outboundTag": "blocked"
       },
       {
         "type": "field",
