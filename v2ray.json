@@ -108,6 +108,14 @@
       },
       {
         "type": "field",
+        "outboundTag": "Reject",
+        "domain": [
+          "geosite:category-ads-all",
+          "geosite:category-porn"
+        ]
+      },
+      {
+        "type": "field",
         "ip": ["geoip:private"],
         "outboundTag": "blocked"
       },
@@ -124,7 +132,6 @@
       {
         "type": "field",
         "domain": [
-          "geosite:category-ads-all",
           "domain:app-measurement.com",
           "domain:googleadservices.com",
           "domain:googlesyndication.com",
