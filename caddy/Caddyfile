@@ -11,11 +11,6 @@ vpn.moeshehab.com {
     header_up X-Real-IP {remote}
     header_up X-Forwarded-For {remote}
     header_up X-Forwarded-Proto {scheme}
-    
-    transport http {
-      keepalive 10s
-      keepalive_idle_conns 10
-    }
   }
 
   route {
@@ -24,11 +19,6 @@ vpn.moeshehab.com {
       header_up X-Real-IP {remote}
       header_up X-Forwarded-For {remote}
       header_up X-Forwarded-Proto {scheme}
-      
-      transport http {
-        keepalive 10s
-        keepalive_idle_conns 10
-      }
     }
     file_server
   }
