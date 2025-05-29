@@ -32,8 +32,9 @@
         "sockopt": {
           "tcpFastOpen": true,
           "tcpNoDelay": true,
-          "tcpKeepAliveInterval": 30,
-          "tcpKeepAliveIdle": 30
+          "tcpKeepAliveInterval": 10,
+          "tcpKeepAliveIdle": 120,
+          "tcpUserTimeout": 10000
         }
       },
       "sniffing": {
@@ -67,11 +68,12 @@
           "type": "none"
         }
       }
-    },
-    {
-      "protocol": "dns",
-      "tag": "dns-out"
     }
+    // },
+    // {
+    //   "protocol": "dns",
+    //   "tag": "dns-out"
+    // }
   ],
   "dns": {
     "servers": [
@@ -89,11 +91,11 @@
     "domainStrategy": "IPIfNonMatch",
     "domainMatcher": "hybrid",
     "rules": [
-      {
-        "type": "field",
-        "inboundTag": ["dns"],
-        "outboundTag": "dns-out"
-      },
+      // {
+      //   "type": "field",
+      //   "inboundTag": ["dns"],
+      //   "outboundTag": "dns-out"
+      // },
       {
         "type": "field",
         "ip": ["geoip:private"],
@@ -104,11 +106,11 @@
         "ip": ["224.0.0.0/4", "ff00::/8"],
         "outboundTag": "blocked"
       },
-      {
-        "type": "field",
-        "protocol": ["bittorrent"],
-        "outboundTag": "blocked"
-      },
+      // {
+      //   "type": "field",
+      //   "protocol": ["bittorrent"],
+      //   "outboundTag": "blocked"
+      // },
       {
         "type": "field",
         "domain": [
@@ -132,9 +134,9 @@
     "levels": {
       "0": {
         "handshake": 4,
-        "connIdle": 300,
-        "uplinkOnly": 2,
-        "downlinkOnly": 5,
+        "connIdle": 0,
+        "uplinkOnly": 0,
+        "downlinkOnly": 0,
         "statsUserUplink": false,
         "statsUserDownlink": false,
         "bufferSize": 64
