@@ -68,12 +68,11 @@
           "type": "none"
         }
       }
+    },
+    {
+      "protocol": "dns",
+      "tag": "dns-out"
     }
-    // },
-    // {
-    //   "protocol": "dns",
-    //   "tag": "dns-out"
-    // }
   ],
   "dns": {
     "servers": [
@@ -91,11 +90,11 @@
     "domainStrategy": "IPIfNonMatch",
     "domainMatcher": "hybrid",
     "rules": [
-      // {
-      //   "type": "field",
-      //   "inboundTag": ["dns"],
-      //   "outboundTag": "dns-out"
-      // },
+      {
+        "type": "field",
+        "inboundTag": ["dns"],
+        "outboundTag": "dns-out"
+      },
       {
         "type": "field",
         "ip": ["geoip:private"],
@@ -106,11 +105,11 @@
         "ip": ["224.0.0.0/4", "ff00::/8"],
         "outboundTag": "blocked"
       },
-      // {
-      //   "type": "field",
-      //   "protocol": ["bittorrent"],
-      //   "outboundTag": "blocked"
-      // },
+      {
+        "type": "field",
+        "protocol": ["bittorrent"],
+        "outboundTag": "blocked"
+      },
       {
         "type": "field",
         "domain": [
