@@ -109,6 +109,26 @@
       {
         "type": "field",
         "domain": [
+          "domain:whatsapp.net",
+          "domain:whatsapp.com",
+          "domain:cdn.whatsapp.net",
+          "domain:media-bom1-1.cdn.whatsapp.net",
+          "domain:media-bom1-2.cdn.whatsapp.net",
+          "domain:media-bom2-1.cdn.whatsapp.net",
+          "domain:media-bom2-4.cdn.whatsapp.net",
+          "domain:media-sin2-2.cdn.whatsapp.net",
+          "domain:dit.whatsapp.net",
+          "domain:static.whatsapp.net",
+          "domain:graph.whatsapp.com",
+          "domain:mmg.whatsapp.net",
+          "domain:pps.whatsapp.net",
+          "regexp:.*\\.whatsapp\\.(net|com)"
+        ],
+        "outboundTag": "whatsapp-priority"
+      },
+      {
+        "type": "field",
+        "domain": [
           "geosite:category-ads-all",
           "geosite:category-porn"
         ],
@@ -122,11 +142,6 @@
       {
         "type": "field",
         "ip": ["224.0.0.0/4", "ff00::/8"],
-        "outboundTag": "blocked"
-      },
-      {
-        "type": "field",
-        "protocol": ["bittorrent"],
         "outboundTag": "blocked"
       },
       {
@@ -156,7 +171,7 @@
         "downlinkOnly": 300,
         "statsUserUplink": false,
         "statsUserDownlink": false,
-        "bufferSize": 64
+        "bufferSize": 512
       }
     },
     "system": {
