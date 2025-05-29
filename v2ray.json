@@ -78,6 +78,18 @@
       {
         "address": "8.8.8.8",
         "port": 53
+      },
+      {
+        "address": "8.8.4.4",
+        "port": 53
+      },
+      {
+        "address": "1.1.1.1",
+        "port": 53
+      },
+      {
+        "address": "localhost",
+        "port": 53
       }
     ],
     "queryStrategy": "UseIPv4",
