@@ -1,24 +1,9 @@
 services:
-  v2ray:
-    image: ghcr.io/v2fly/v2ray:latest-extra
-    container_name: v2ray
-    restart: always
-    environment:
-      - v2ray.vmess.aead.forced=false
-    volumes:
-      - ./v2ray.json:/etc/v2ray/config.json
-    ports:
-     - 2213:2213
-
-  caddy:
-    image: caddy:2
-    container_name: caddy
+  xray:
+    image: ghcr.io/xtls/xray-core:main
+    container_name: xray
     restart: always
     volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy/web/:/usr/share/caddy
-      - ./caddy/data/:/data/caddy/
-      - ./caddy/config/:/config/caddy
+      - ./xray.json:/etc/xray/config/config.json
     ports:
-      - 80:80
       - 443:443
